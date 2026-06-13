@@ -1,55 +1,52 @@
-public class project {
+import java.util.Scanner;
+
+public class project2 {
     public static void main(String[] args) {
-
         Document doc = new Document();
+        Scanner scanner = new Scanner(System.in);
+        boolean running = true;
 
-        doc.addText("Hello World");
-        System.out.println("Text after adding:");
-        doc.displayText();
+        System.out.println("=== Document Editor Console ===");
 
-        doc.reverseText();
-        System.out.println("Text after reverse:");
-        doc.displayText();
+        while (running) {
+            System.out.println("\nChoose an option:");
+            System.out.println("1. Add Text");
+            System.out.println("2. Reverse Text");
+            System.out.println("3. Clear Text");
+            System.out.println("4. Exit");
+            System.out.print("Enter choice (1-4): ");
 
-        doc.clearText();
-        System.out.println("Text after clear:");
-        doc.displayText();
-    }
-}
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume the leftover newline character
 
-class Document {
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter text to add: ");
+                    String textToAdd = scanner.nextLine();
+                    doc.addText(textToAdd);
+                    System.out.println("Text added successfully!");
+                    break;
 
-    private StringBuffer textBuffer;
+                case 2:
+                    doc.reverseText();
+                    System.out.println("Text reversed!");
+                    doc.displayText();
+                    break;
 
-    public Document() {
-        textBuffer = new StringBuffer();
-    }
+                case 3:
+                    doc.clearText();
+                    System.out.println("Text cleared!");
+                    break;
 
-    public void addText(String input) {
-        textBuffer.append(input);
-    }
+                case 4:
+                    running = false;
+                    System.out.println("Exiting program. Goodbye!");
+                    break;
 
-    public void clearText() {
-        textBuffer.setLength(0);
-    }
-
-    public void reverseText() {
-        textBuffer.reverse();
-    }
-
-    public void deleteText(int start, int end) {
-        if (start >= 0 && end <= textBuffer.length() && start < end) {
-            textBuffer.delete(start, end);
-        } else {
-            System.out.println("Invalid range");
+                default:
+                    System.out.println("Invalid choice! Please select between 1 and 6.");
+            }
         }
-    }
-
-    public void displayText() {
-        if (textBuffer.length() == 0) {
-            System.out.println("<empty>");
-        } else {
-            System.out.println(textBuffer.toString());
-        }
+        scanner.close();
     }
 }
